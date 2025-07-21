@@ -12,7 +12,7 @@ import plotly.express as px
 ## Postdoc functions - from 03/2025 @Jescab01
 def timeseries_spectra(signals, simLength, regionLabels, yaxis="Voltage (mV)",
                        mode="html", folder="figures", height=500, width=800,
-                       freqRange=[2, 40], opacity=1, title="", auto_open=True):
+                       freq_range=[2, 40], opacity=1, title="", auto_open=True):
     """
 
     :param signals:
@@ -23,7 +23,7 @@ def timeseries_spectra(signals, simLength, regionLabels, yaxis="Voltage (mV)",
     :param folder:
     :param height:
     :param width:
-    :param freqRange:
+    :param freq_range:
     :param opacity:
     :param title:
     :param auto_open:
@@ -56,9 +56,9 @@ def timeseries_spectra(signals, simLength, regionLabels, yaxis="Voltage (mV)",
         fft_temp = abs(np.fft.fft(signal))  # FFT for each channel signal
         fft = np.asarray(fft_temp[range(int(len(signal) / 2))])  # Select just positive side of the symmetric FFT
 
-        fft = fft[(freqs > freqRange[0]) & (freqs < freqRange[1])]  # remove undesired frequencies
+        fft = fft[(freqs > freq_range[0]) & (freqs < freq_range[1])]  # remove undesired frequencies
 
-        fig.add_trace(go.Scatter(x=freqs[(freqs > freqRange[0]) & (freqs < freqRange[1])], y=fft,
+        fig.add_trace(go.Scatter(x=freqs[(freqs > freq_range[0]) & (freqs < freq_range[1])], y=fft,
                                  marker_color=cmap[i % len(cmap)], name=regionLabels[i], opacity=opacity,
                                  legendgroup=regionLabels[i], showlegend=False), row=1, col=2)
 

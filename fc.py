@@ -31,18 +31,19 @@ def fc(signals, samplingFreq=None, lowcut=8, highcut=12, measure="PLV", ef=None,
 
     if "CORR" in measure:
 
-        stdSignals = (signals - np.average(signals, axis=0)) / np.std(signals, axis=0)
+        # stdSignals = (signals - np.average(signals, axis=0)) / np.std(signals, axis=0)
 
         # normalSignals = np.ndarray((len(signals), len(signals[0])))
         # for channel in range(len(signals)):
         #     mean = np.mean(signals[channel, :])
         #     std = np.std(signals[channel, :])
         #     normalSignals[channel] = (signals[channel, :] - mean) / std
-        print("Calculating PLV", end="") if verbose else None
+        print("Calculating CORR", end="") if verbose else None
         for r1, roi1 in enumerate(range(n_rois)):
             print(" . . . %0.2f %%" % ((r1+1)/n_rois), end="\r") if verbose else None
             for roi2 in range(n_rois):
-                fc_matrix[roi1][roi2] = sum(stdSignals[roi1] * stdSignals[roi2]) / len(stdSignals[0])
+                fc_matrix[roi1][roi2] = np.corrcoef(signals[roi1], signals[roi2])[0, 1]
+                # fc_matrix[roi1][roi2] = sum(signals[roi1] * signals[roi2]) / len(signals[0])
 
     elif measure in ["PLV", "AEC", "PLI"]:
 
