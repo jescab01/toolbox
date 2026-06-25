@@ -10,7 +10,7 @@ import plotly.express as px
 
 
 ## Postdoc functions - from 03/2025 @Jescab01
-def timeseries_spectra(signals, simLength, regionLabels, yaxis="Voltage (mV)",
+def timeseries_spectra(signals, simLength, regionLabels, yaxis="Voltage (mV)", type="linear",
                        mode="html", folder="figures", height=500, width=800,
                        freq_range=[2, 40], opacity=1, title="", auto_open=True):
     """
@@ -62,8 +62,8 @@ def timeseries_spectra(signals, simLength, regionLabels, yaxis="Voltage (mV)",
                                  marker_color=cmap[i % len(cmap)], name=regionLabels[i], opacity=opacity,
                                  legendgroup=regionLabels[i], showlegend=False), row=1, col=2)
 
-        fig.update_layout(xaxis=dict(title="Time (s)"), xaxis2=dict(title="Frequency (Hz)"),
-                          yaxis=dict(title=yaxis), yaxis2=dict(title="Power (dB)"),
+        fig.update_layout(xaxis=dict(title="Time (s)"), xaxis2=dict(title="Frequency (Hz)", type=type),
+                          yaxis=dict(title=yaxis), yaxis2=dict(title="Power (dB)", type=type),
                           template="plotly_white", title=title, height=height, width=width,
                           legend=dict(orientation="h", y=-0.75, x=0))
 
